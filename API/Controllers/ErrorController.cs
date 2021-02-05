@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace API.Controllers
 {
     [Route("errors/{code}")]
+    [ApiExplorerSettings(IgnoreApi = true)]  // swagger was angry about endpoint not being get post or anything 
     public class ErrorController : BaseApiController
     {
         public IActionResult Error(int code)
