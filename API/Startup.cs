@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.Errors;
 using API.Helpers;
 using API.Middleware;
 using AutoMapper;
@@ -39,6 +40,25 @@ namespace API
             services.AddDbContext<StoreContext>(x => 
                     x.UseSqlite(_config.GetConnectionString("DefaultConnection")));
 
+            // we override bad request/validate error, kinda like middleware
+            // for example "localhost/api/getById/wrongType"
+            services.Configure<ApiBehaviorOptions>(options => {
+                options.InvalidModelStateResponseFactory = actionContext =>
+                {
+                    var errors = actionContext.ModelState
+                        .Where(e => e.Value.Errors.Count > 0)
+                        .SelectMany(x => x.Value.Errors)
+                        .Select(x => x.ErrorMessage).ToArray();
+
+                    var errorResponse = new ApiValidationErrorResponse
+                    {
+                        Errors = errors
+                    };
+
+                    return new BadRequestObjectResult(errorResponse);
+                };
+            });
+
             // services.AddSwaggerGen(c =>
             // {
             //     c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
@@ -54,6 +74,7 @@ namespace API
             // }
 
             // use our error middleware on exception
+            // overrides default behaviour and it returns our custom object instead of default ugly one
             app.UseMiddleware<ExceptionMiddleware>();
 
             // handle 404 and 400, redirect on error endpoint
