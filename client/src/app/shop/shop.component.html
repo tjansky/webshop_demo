@@ -11,17 +11,15 @@
 
             <h5 class="text-warning ml-3">Brands</h5>
             <ul class="list-group  my-3">
-                <li class="list-group-item active">Random nesto</li>
-                <li class="list-group-item">Samsung</li>
-                <li class="list-group-item">Xiaomi</li>
-                <li class="list-group-item">Apple</li>
+                <li class="list-group-item" *ngFor="let brand of brands">
+                    {{brand.name}}
+                </li>
             </ul>
             <h5 class="text-warning ml-3">Types</h5>
             <ul class="list-group my-3">
-                <li class="list-group-item active">Random nesto</li>
-                <li class="list-group-item">Samsung</li>
-                <li class="list-group-item">Xiaomi</li>
-                <li class="list-group-item">Apple</li>
+                <li class="list-group-item" *ngFor="let type of types">
+                    {{type.name}}
+                </li>
             </ul>
         </section>
 
