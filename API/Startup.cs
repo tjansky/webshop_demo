@@ -30,7 +30,7 @@ namespace API
                     x.UseSqlite(_config.GetConnectionString("DefaultConnection")));
             
             // redis configuration
-            services.AddSingleton<ConnectionMultiplexer>(c => {
+            services.AddSingleton<IConnectionMultiplexer>(c => {
                 var configuration = ConfigurationOptions.Parse(_config
                     .GetConnectionString("Redis"), true);
                 return ConnectionMultiplexer.Connect(configuration);
