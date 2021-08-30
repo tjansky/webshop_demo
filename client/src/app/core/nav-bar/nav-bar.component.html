@@ -7,6 +7,7 @@
     </nav>
     <a routerLink="/basket">
       <div>--Basket--</div>
+      <div *ngIf="(basket$ | async) as basket">{{basket.items.length}}</div>
     </a>
     
     <a class="btn btn-outline-primary" href="#">Login</a>
