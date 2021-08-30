@@ -1,0 +1,20 @@
+<div>
+    Order Summary
+</div>
+<div>
+    <p>Shipping costs will be added later depending on stuff..</p>
+    <ul *ngIf="(basketTotal$ | async) as totals">
+        <li>
+            <strong>Order subtotal - </strong>
+            <strong>{{totals.subtotal}}</strong>
+        </li>
+        <li>
+            <strong>Shipping and handling - </strong>
+            <strong>{{totals.shipping}}</strong>
+        </li>
+        <li>
+            <strong>Total - </strong>
+            <strong>{{totals.total}}</strong>
+        </li>
+    </ul>
+</div>
