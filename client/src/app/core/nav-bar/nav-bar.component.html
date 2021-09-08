@@ -10,6 +10,6 @@
       <div *ngIf="(basket$ | async) as basket">{{basket.items.length}}</div>
     </a>
     
-    <a class="btn btn-outline-primary" href="#">Login</a>
-    <a class="btn btn-outline-primary" href="#">Sign up</a>
+    <a routerLink="/account/login" class="btn btn-outline-primary">Login</a>
+    <a routerLink="/account/register" class="btn btn-outline-primary">Sign up</a>
 </header>
