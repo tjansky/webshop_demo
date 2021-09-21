@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AsyncValidatorFn, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { of, timer } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 import { AccountService } from '../account.service';
 
 @Component({
@@ -21,7 +23,7 @@ export class RegisterComponent implements OnInit {
   createRegisterForm() {
     this.registerForm = this.fb.group({
       displayName: [null, [Validators.required]],
-      email: [null, [Validators.required, Validators.email]],
+      email: [null, [Validators.required, Validators.email], [this.validateEmailNotTaken()]],
       password: [null, Validators.required]
     });
   }
@@ -33,6 +35,23 @@ export class RegisterComponent implements OnInit {
       console.log(error);
       this.errors = error.errors;
     });
+  }
+
+  validateEmailNotTaken(): AsyncValidatorFn {
+    return control => {
+      return timer(500).pipe(
+        switchMap(() => {
+          if (!control.value) {
+            return of(null);
+          }
+          return this.accountService.checkEmailExists(control.value).pipe(
+            map(res => {
+              return res ? {emailExists: true} : null
+            })
+          );
+        })
+      );
+    }
   }
 
 }
