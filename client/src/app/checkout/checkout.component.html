@@ -1,3 +1,24 @@
 <div>
-    <h1>Only authorized users should be able to see this</h1>
+    <div>
+        <div>
+            <app-stepper [linearModeSelected]="false" #appStepper>
+                <cdk-step [label]="'Address'">
+                    Step 1
+                </cdk-step>
+                <cdk-step [label]="'Delivery'">
+                    Step 2
+                </cdk-step>
+                <cdk-step [label]="'Review'">
+                    Step 3
+                </cdk-step>
+                <cdk-step [label]="'Payment'">
+                    Step 4
+                </cdk-step>
+            </app-stepper>
+        </div>
+        <div>
+            <app-order-totals></app-order-totals>
+        </div>
+    </div> 
+
 </div>

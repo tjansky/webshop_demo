@@ -1,0 +1,14 @@
+<div>
+    <ul>
+        <li *ngFor="let step of steps; let i = index">
+            <button 
+            (click)="onClick(i)" 
+            [class.active]="selectedIndex === i">
+                {{step.label}}
+            </button>
+        </li>
+    </ul>
+    <div>
+        <ng-container [ngTemplateOutlet]="selected.content"></ng-container>
+    </div>
+</div>
