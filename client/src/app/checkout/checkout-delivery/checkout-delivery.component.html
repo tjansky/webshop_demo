@@ -1,1 +1,21 @@
-<p>checkout-delivery works!</p>
+<div [formGroup]="checkoutForm">
+    <div formGroupName="deliveryForm">
+        <div *ngFor="let method of deliveryMethods"> 
+            <input type="radio"
+                id={{method.id}}
+                (click)="setShippingPrice(method)"
+                value={{method.id}}
+                formControlName="deliveryMethod">
+            <label for="{{method.id}}">
+               <strong>{{method.shortName}} - {{method.price | currency}}</strong>
+               <br>
+               <span>{{method.description}}</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<div>
+    <button cdkStepperPrevious>Back to Address</button>
+    <button cdkStepperNext>Go to Review</button>
+</div>

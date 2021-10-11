@@ -2,15 +2,12 @@
     <p>There are no items in your basket</p>
 </div>
 
-<div *ngIf="(basket$ | async) as basket">
-    <ul>
-        <li *ngFor="let item of basket.items">
-            {{item.productName}} - {{item.quantity}} | 
-            <button (click)="incrementItemQuantity(item)">+</button> | 
-            <button (click)="decrementItemQuantity(item)">-</button> | 
-            <button (click)="removeBasketItem(item)">Remove</button>
-        </li>
-    </ul>
+<div *ngIf="basket$ | async">
+    <app-basket-summary
+        (decrement)="decrementItemQuantity($event)"
+        (increment)="incrementItemQuantity($event)"
+        (remove)="removeBasketItem($event)"
+    ></app-basket-summary>
     <hr>
     <div>
         <app-order-totals></app-order-totals>

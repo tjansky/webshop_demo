@@ -1,0 +1,14 @@
+
+<ng-container *ngIf="basket$ | async">
+
+    <ul>
+        <li *ngFor="let item of (basket$ | async).items">
+            {{item.productName}} - {{item.quantity}} | 
+            <button *ngIf="isBasket" (click)="incrementItemQuantity(item)">+</button> | 
+            <button *ngIf="isBasket" (click)="decrementItemQuantity(item)">-</button> | 
+            <button *ngIf="isBasket" (click)="removeBasketItem(item)">Remove</button>
+        </li>
+    </ul>
+
+</ng-container>
+
